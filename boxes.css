@@ -1,0 +1,52 @@
+
+
+.button {
+    margin-bottom: 0px; margin-top: 0px; background-color: #37826c; color:white;
+    /*    width: 70px;
+        height: 30px;*/
+    display:inline;
+    color:rgb(12, 12, 12);
+    font-size: 20px;
+    
+    border-radius: 40%;
+    cursor:pointer;
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 10px );
+    -webkit-backdrop-filter: blur( 10px );
+    border-radius: 10px;
+    border: 1px solid rgba(244, 245, 245, 0.18);
+}
+
+.button:hover {    
+    background-color: #1c5282 !important;    
+    color: white !important;
+
+}  
+#list {
+    margin-top: 3%;
+    text-align: center;
+    color: rgb(218, 245, 128);
+    background: rgb(74, 9, 159);
+    font-size: 25px;
+    border-radius: 30%;
+    padding-top: 3%;
+  }
+  li {
+    list-style: none;
+  }
+
+  li::before {
+    content: "\00BB";
+  }
+
+  .morp {
+    text-align: center;
+    color: rgb(242, 53, 214);
+    font-size: 30px;
+    background: rgba(231, 212, 212, 0.4);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+  }
