@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Binary Search Tree Animation by Y. Daniel Liang</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" type="text/css" href="boxes.css" />
+  <script src="jquery-1.7.2.min.js"></script>
+  <script src="jquery.alerts.js"></script>
+  <link href="jquery.alerts.css" rel="stylesheet" type="text/css" media="screen" />
+  <script src="BST.js"></script>
+  <script>
+    tree = new BST();
+    vGap = 40;
+    radius = 20;
+    function draw() {
+      var canvas = document.getElementById('canvas');
+      var context = canvas.getContext("2d");
+      // Reset size will clear the canvas
+      canvas.width = window.innerWidth - 60;
+      canvas.height = 500; // window.innerHeight - 180;
+      context.clearRect(0, 0, canvas.width, canvas.height); // For IE 9
+      context.font = "14px sans-serif";
+      context.strokeStyle = "#100";
+      if (tree.isEmpty()) {
+        context.fillText("Tree is Empty", canvas.width / 2 - 50, 200);
+      }
+      else {
+        x = canvas.width / 2;
+        y = 30;
+        drawTree(context, x, y, radius, tree.root, canvas.width / 4);
+      }
+      context.stroke();
+    }
+    function drawTree(context, x, y, radius, root, hGap) {
+      context.fillText(root.element + "", x - 5, y + 5);
+      context.arc(x, y, radius, 0, Math.PI * 2, false);
+      if (root.left != null) {
+        connectTwoCircles(context, x, y, x - hGap, y + vGap);
+        context.moveTo(x - hGap + radius, y + vGap);
+        drawTree(context, x - hGap, y + vGap, radius, root.left, hGap / 2);
+      }
+      if (root.right != null) {
+        connectTwoCircles(context, x, y, x + hGap, y + vGap);
+        context.moveTo(x + hGap + radius, y + vGap);
+        drawTree(context, x + hGap, y + vGap, radius, root.right, hGap / 2);
+      }
+    }
+    // Connect two circles centered at (x1, y1) and (x2, y2) 
+    function connectTwoCircles(context, x1, y1, x2, y2) {
+      var d = Math.sqrt(vGap * vGap + (x2 - x1) * (x2 - x1));
+      var x11 = x1 - radius * (x1 - x2) / d;
+      var y11 = y1 - radius * (y1 - y2) / d;
+      var x21 = x2 + radius * (x1 - x2) / d;
+      var y21 = y2 + radius * (y1 - y2) / d;
+      context.moveTo(x11, y11);
+      context.lineTo(x21, y21);
+    }
+    function remove1() {
+      if (tree.isEmpty()) {
+        jAlert("The Tree is Empty");
+      }
+      else {
+        var value = document.getElementById('value').value.trim();
+        if (value == "") {
+          jAlert("No key Entered");
+        }
+        else if (tree.search(parseInt(value))) {
+          tree.remove(parseInt(value));
+          draw();
+        }
+        else {
+          jAlert("key " + value + " is not in the Tree");
+        }
+      }
+    }
+    function insert() {
+      var value = document.getElementById('value').value.trim();
+      if (value == "") {
+        jAlert("No key Entered");
+      }
+      else if (tree.search(parseInt(value))) {
+        jAlert("key " + value + " is already in the Tree");
+      }
+      else {
+        tree.insert(parseInt(value));
+        draw();
+      }
+    }
+    function inorder() {
+      if (tree.getSize() == 0)
+        jAlert("The Tree is Empty");
+      else
+        jAlert("The Tree Sort is : " + tree.getInorder(tree.getRoot()));
+    }
+  </script>
+</head>
+
+<body onload="draw()" onresize="draw()" style="background-color :aqua">
+  <h1 style="text-align:center; font: bold;background-color: blanchedalmond;">TREE SORT </h1>
+  <p>
+  <h3>
+    <ul id="list">
+      <li> For the best display, use integers between 0 and 99. </li><br>
+      <li> Click the Insert button to insert the key into the tree.</li><br>
+      <li> Click the Remove button to remove the key from the tree.</li><br><br>
+    </ul>
+    <h2 class="morp"> **&nbsp; CLICK INORDER BUTTON TO SEE THE SORTING ORDER OF TREE SORT &nbsp;**
+  </h3>
+  </p>
+
+  <div style="border: 10px solid #030008; text-align: right">
+    <canvas id="canvas" style="background-color: white;"></canvas>
+  </div>
+  <div style="text-align: center; margin-top: 1em;">
+
+    <h3> Enter a key:</h3> <input type="text" value="" id="value" style="width: 10%; text-align: center;font-size:30px">
+  </div><span style="margin:50px,50px,50px,0;display: block;padding-left: 40%;padding-top: 3%;margin-bottom: 5%;">
+    <button type="button" class="button" onclick="insert()">INSERT</button>
+    <button type="button" class="button" onclick="remove1()">REMOVE</button>
+    <button type="button" class="button" onclick="inorder()">INORDER</button></span>
+  </span>
+  </div>
+</body>
+
+</html>
